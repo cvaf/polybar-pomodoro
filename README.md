@@ -6,7 +6,7 @@ Display during a task: ![](imgs/screen_busy.png)
 Display during a break: ![](imgs/screen_break.png)
 
 
-Add the following to our polybar config:
+Add the following to your polybar config:
 
 ```
 [module/pomodoro]
@@ -15,11 +15,11 @@ type = custom/script
 interval = 1
 format-background = ${color.mf}
 format-foreground = ${color.fg}
-exec = "python ~/Documents/Python/pomo/pomo_action.py --opt='update'"
+exec = "python path/to/pomo_action.py --opt='update'"
 
-click-left = python ~/Documents/Python/pomo/pomo_action.py --opt='left'
-click-middle = python ~/Documents/Python/pomo/pomo_action.py --opt='middle'
-click-right = python ~/Documents/Python/pomo/pomo_action.py --opt='right'
+click-left = python path/to/pomo_action.py --opt='left'
+click-middle = python path/to/pomo_action.py --opt='middle'
+click-right = python path/to/pomo_action.py --opt='right'
 
 
 [module/pomodoro_i]
@@ -30,7 +30,9 @@ content-background = ${color.purple}
 content-foreground = ${color.fg}
 content-padding = 1
 
-click-left = "python ~/Documents/Python/pomo/pomo_action.py --opt='left'" &
-click-middle = "python ~/Documents/Python/pomo/pomo_action.py --opt='middle'" &
-click-right = "python ~/Documents/Python/pomo/pomo_action.py --opt='right'" &
+click-left = python path/to/pomo_action.py --opt='left'
+click-middle = python path/to/pomo_action.py --opt='middle'
+click-right = python path/to/pomo_action.py --opt='right'
 ```
+
+Edit the [config](config.py) to configure application.
