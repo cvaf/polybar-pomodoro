@@ -35,4 +35,4 @@ click-middle = python path/to/pomo_action.py --opt='middle'
 click-right = python path/to/pomo_action.py --opt='right'
 ```
 
-Edit the [config](config.py) to configure application.
+Edit the timing and naming variables in  the [config](config.py) file to configure the application.
