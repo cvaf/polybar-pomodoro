@@ -23,27 +23,40 @@ class Pomodoro:
 		# Fixed attributes
 		self.task = task
 		self.num_runs = num_runs
+		self.perma_run_time = run_time * 60
 		self.run_time = run_time * 60
 		self.break_time = break_time * 60
 		# Flexible attributes
 		self.run_count = 0
+		self.elapsed_time = 0
 
 
 	def start_run(self):
 		self.start_time = time.time()
+		self.run_time = self.perma_run_time
 		self.status = self.task
 		self.run_count+=1
-		# self.label = TASK_LABEL
+		self.elapsed_time = 0
+
+	def resume_run(self):
+		self.start_time = time.time()
+		self.run_time = self.run_time - self.elapsed_time
+		self.status = self.task
+		self.elapsed_time = 0
+
+	def pause_run(self):
+		self.elapsed_time = time.time() - self.start_time
+		self.status = 'Pause'
 
 	def start_break(self):
 		self.start_time = time.time()
 		self.status = 'Break'
-		# self.label = BREAK_LABEL
 
 	def terminate(self):
 		self.status = 'Fin'
-		# self.label = FIN_LABEL
 		self.start_time = 0
+		self.remaining_time = 0
+
 
 
 
@@ -142,6 +155,9 @@ def pomo_left():
 					 break_time=BREAK_TIME, num_runs=NUM_RUNS)
 		p.start_run()
 
+	elif p.status == 'Pause':
+		p.resume_run()
+
 	else:
 		p.start_time = p.start_time - 60
 
@@ -152,14 +168,20 @@ def pomo_left():
 
 def pomo_middle():
 	"""
-	Middle click action: terminate current stage
+	Middle click action:
+		- if working on task: toggle pause
+		- if on break: resume task
+		- else: start task
 	"""
 
 	with open(TEMP_FILE, 'rb') as f:
 		p = pickle.load(f)
 
-	if p.status == p.task:
-		p.start_break()
+	if p.status == 'Pause':
+		p.resume_run()
+
+	elif p.status == p.task:
+		p.pause_run()
 
 	elif p.status == 'Break':
 
@@ -170,7 +192,7 @@ def pomo_middle():
 			p.start_run()
 
 	else:
-		pass
+		p.start_run()
 
 	with open(TEMP_FILE, 'wb') as f:
 		pickle.dump(p, f)
@@ -179,7 +201,7 @@ def pomo_middle():
 def pomo_right():
 	"""
 	Right click action: 
-		- if status = Fin: create a new pomodoro process
+		- if Fin: create a new pomodoro process
 		- else: remove a minute from the current process
 	"""
 
