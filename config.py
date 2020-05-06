@@ -1,7 +1,6 @@
 """
 Pomodoro application configuration file.
 """
-
 TASK = 'Busy'
 RUN_TIME = 25
 BREAK_TIME = 5
