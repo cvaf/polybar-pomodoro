@@ -64,14 +64,14 @@ def print_status(status, time_remaining):
 
   if time_remaining >= 60:
     mins_remaining = math.ceil(time_remaining / 60)
-    print(f' {status}: {mins_remaining}m')
+    print(f' {status}: {mins_remaining}m ')
 
   elif time_remaining == 0:
-    print(f' {status}')
+    print(f' {status} ')
 
   else:
     secs_remaining = math.floor(time_remaining)
-    print(f' {status}: {secs_remaining}s')
+    print(f' {status}: {secs_remaining}s ')
 
 
 
